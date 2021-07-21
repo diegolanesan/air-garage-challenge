@@ -6,11 +6,6 @@ function useParkings(location) {
     const [parkings, setParkings] = useState([])
     
     useEffect(() => {
-        // Cambiar por un warning en el cuerpo del componente
-        if(location === "") {
-            alert("Please enter a location")
-        }  
-        // ---------------------------------------------------
         setLoading(true)  
         getParkings(location)
             .then(parkings => {

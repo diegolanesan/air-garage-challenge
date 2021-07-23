@@ -11,23 +11,26 @@ export default function getParkings(location) {
         },
         params: {
             location,
-            term: 'parking'
+            term: 'parking',
+            limit: 50
         }
       })
       .then(response => {
         const {businesses} = response.data
         const parkings = businesses.map(parking => {
          return {
+          id: parking.id,
+          name: parking.name,
           address: parking.location.display_address[0],
           image: parking.image_url,
           yelpPage: parking.url,
           rating: parking.rating,
           reviewCount: parking.review_count,
-          lotScore: (parking.review_count * parking.rating) / (parking.review_count + 1),
+          score: (parking.review_count * parking.rating) / (parking.review_count + 1),
           }
         })
         return parkings.sort((a,b) => {
-          return a.lotScore - b.lotScore
+          return a.rating - b.rating
         })
       })
       
